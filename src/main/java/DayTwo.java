@@ -9,7 +9,6 @@ import org.junit.Test;
 
 public class DayTwo {
 
-  //test
 
   public static void main(String[] args) throws FileNotFoundException {
 
