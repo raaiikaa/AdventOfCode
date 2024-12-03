@@ -18,8 +18,10 @@ public class DayTwo {
       arrayList.add(file.nextLine());
     }
 
-    checkSafeOrUnsafe(arrayList);
-    System.out.println(checkSafeOrUnsafe(arrayList));
+    System.out.println("Solution for day 2 task 1:\n" + "Total of safe reports: " + checkSafeOrUnsafe(arrayList));
+    System.out.println(" ");
+    System.out.println("Solution for day 2 task 2:\n" + "Total of safe reports: " + checkSafeOrUnsafeAdvanced(arrayList));
+
 
   }
 
@@ -40,17 +42,37 @@ public class DayTwo {
         increasing = true;
       } else if (splitInts.get(0) > splitInts.get(1)) {
         increasing = false;
-      } else if (splitInts.get(0) == splitInts.get(1)) {
-        break;
-      }
-
-      if(entry.equals("40 39 38 35 32 31 29")){
-        System.out.println("hooray");
       }
 
         if(checkIfOperationIsOk(sizeOfEntry, increasing, splitInts)){
           numberOfSafeEntries ++;
         }
+    }
+    return numberOfSafeEntries;
+  }
+
+  public static int checkSafeOrUnsafeAdvanced(ArrayList<String> arrayList) {
+    int numberOfSafeEntries = 0;
+
+    for (String entry : arrayList) {
+      String[] splitStrings = entry.split(" ");
+      ArrayList<Integer> splitInts = new ArrayList<Integer>();
+
+      for (String string : splitStrings) {
+        splitInts.add(Integer.valueOf(string));
+      }
+
+      int sizeOfEntry = splitInts.size();
+      boolean increasing = true;
+      if (splitInts.get(0) < splitInts.get(1)) {
+        increasing = true;
+      } else if (splitInts.get(0) > splitInts.get(1)) {
+        increasing = false;
+      }
+
+      if(checkIfOperationIsOkAdvanced(sizeOfEntry, increasing, splitInts)){
+        numberOfSafeEntries ++;
+      }
     }
     return numberOfSafeEntries;
   }
@@ -82,11 +104,58 @@ public class DayTwo {
     return isOk;
   }
 
-  @Test
-  public void boolTest(){
-    String[] array = {"1 2 3 4 5", "12 11 10 9 8 7"};
-    ArrayList<String> list = new ArrayList<String>(Arrays.asList(array));
-    checkSafeOrUnsafe(list);
+  public static boolean checkIfOperationIsOkAdvanced(int sizeOfEntry, boolean increasing,
+      ArrayList<Integer> splitInts) {
+    boolean isOk = true;
+    if (increasing) {
+      for (int i = 0; i < sizeOfEntry - 1; i++) {
+        int result = splitInts.get(i + 1) - splitInts.get(i);
+        if (result <= 3 && result >= 1) {
+          isOk = true;
+        } else {
+          isOk = false;
+          break;
+        }
+      }
+    } else {
+      for (int i = 0; i < sizeOfEntry -1; i++) {
+        int result = splitInts.get(i) - splitInts.get(i + 1);
+        if (result <= 3 && result >= 1) {
+          isOk = true;
+        } else {
+          isOk = false;
+          break;
+        }
+      }
+    }
+
+    //für Part 2
+    int isOkMeter = 0;
+    if(isOk == false){
+      if (increasing) {
+        for (int i = 0; i < sizeOfEntry - 1; i++) {
+          int result = splitInts.get(i + 1) - splitInts.get(i);
+          if(isOkMeter<=1){
+            if(result <= 0 || result > 3) {
+              isOkMeter ++;
+            }
+          }
+        }
+      } else {
+        for (int i = 0; i < sizeOfEntry -1; i++) {
+          int result = splitInts.get(i) - splitInts.get(i + 1);
+          if(isOkMeter<1){
+            if(result <= 0 || result > 3) {
+              isOkMeter ++;
+            }
+          }
+        }
+      }
+    }
+    if(isOkMeter > 1){
+      return false;
+    }
+    return true;
   }
 }
 
