@@ -13,7 +13,7 @@ public class DayTwo {
   public static void main(String[] args) throws FileNotFoundException {
 
     ArrayList<String> arrayList = new ArrayList<String>();
-    Scanner file = new Scanner(new FileReader("C:\\Users\\lre\\Desktop\\Textdokument (neu).txt"));
+    Scanner file = new Scanner(new FileReader("/Users/lennard/Desktop/Test.txt"));
     while (file.hasNext()) {
       arrayList.add(file.nextLine());
     }
