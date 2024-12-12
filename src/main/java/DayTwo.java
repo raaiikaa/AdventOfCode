@@ -1,11 +1,8 @@
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
-import org.junit.Test;
 
 public class DayTwo {
 
